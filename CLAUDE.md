@@ -9,6 +9,7 @@
 **版本：** v0.8.6
 
 **核心功能：**
+
 - 文生图：支持 jimeng-5.0、jimeng-4.6、jimeng-4.5 等多款模型，最高 4K 分辨率
 - 图生图：多图合成，支持 1-10 张输入图片
 - 视频生成：jimeng-video-3.5-pro 等模型，支持首帧/尾帧控制
@@ -100,21 +101,24 @@ src/
 
 ## API 端点
 
-| 端点 | 方法 | 说明 |
-|------|------|------|
-| `/v1/chat/completions` | POST | OpenAI 兼容的对话接口（用于图像/视频生成） |
-| `/v1/images/generations` | POST | 文生图/图生图接口（支持 images 可选参数） |
-| `/v1/images/compositions` | POST | 图生图接口（支持文件上传，向后兼容） |
-| `/v1/videos/generations` | POST | 视频生成接口（含 Seedance 2.0 / 2.0-fast） |
-| `/v1/video/generations` | POST | 视频生成接口（别名路由） |
-| `/v1/models` | GET | 获取可用模型列表 |
-| `/token/check` | POST | 检查 Token 有效性 |
-| `/token/points` | POST | 查询账户积分 |
-| `/ping` | GET | 健康检查端点 |
+
+| 端点                        | 方法   | 说明                                |
+| ------------------------- | ---- | --------------------------------- |
+| `/v1/chat/completions`    | POST | OpenAI 兼容的对话接口（用于图像/视频生成）         |
+| `/v1/images/generations`  | POST | 文生图/图生图接口（支持 images 可选参数）         |
+| `/v1/images/compositions` | POST | 图生图接口（支持文件上传，向后兼容）                |
+| `/v1/videos/generations`  | POST | 视频生成接口（含 Seedance 2.0 / 2.0-fast） |
+| `/v1/video/generations`   | POST | 视频生成接口（别名路由）                      |
+| `/v1/models`              | GET  | 获取可用模型列表                          |
+| `/token/check`            | POST | 检查 Token 有效性                      |
+| `/token/points`           | POST | 查询账户积分                            |
+| `/ping`                   | GET  | 健康检查端点                            |
+
 
 ## 关键技术细节
 
 ### 认证方式
+
 - 使用即梦网站的 `sessionid` Cookie 作为 Bearer Token
 - 多账号支持：逗号分隔多个 sessionid：`Authorization: Bearer sessionid1,sessionid2`
 - 每次请求随机选择一个 sessionid 使用
@@ -122,72 +126,87 @@ src/
 ### 模型映射
 
 #### 图像模型
-| 用户模型名 | 内部模型名 | Draft 版本 | 说明 |
-|-----------|-----------|-----------|------|
-| `jimeng-5.0` | `high_aes_general_v50` | 3.3.9 | 5.0 正式版（原 jimeng-5.0-preview），最新模型 |
-| `jimeng-4.6` | `high_aes_general_v42` | 3.3.9 | 推荐使用 |
-| `jimeng-4.5` | `high_aes_general_v40l` | 3.3.4 | 高质量模型 |
-| `jimeng-4.1` | `high_aes_general_v41` | 3.3.4 | 高质量模型 |
-| `jimeng-4.0` | `high_aes_general_v40` | 3.3.4 | 稳定版本 |
-| `jimeng-3.1` | `high_aes_general_v30l_art_fangzhou` | - | 艺术风格 |
-| `jimeng-3.0` | `high_aes_general_v30l` | - | 通用模型 |
-| `jimeng-2.1` | - | - | 旧版模型 |
-| `jimeng-2.0-pro` | - | - | 旧版专业模型 |
-| `jimeng-2.0` | - | - | 旧版模型 |
-| `jimeng-1.4` | - | - | 早期模型 |
-| `jimeng-xl-pro` | - | - | XL 专业模型 |
+
+
+| 用户模型名            | 内部模型名                                | Draft 版本 | 说明                                 |
+| ---------------- | ------------------------------------ | -------- | ---------------------------------- |
+| `jimeng-5.0`     | `high_aes_general_v50`               | 3.3.9    | 5.0 正式版（原 jimeng-5.0-preview），最新模型 |
+| `jimeng-4.6`     | `high_aes_general_v42`               | 3.3.9    | 推荐使用                               |
+| `jimeng-4.5`     | `high_aes_general_v40l`              | 3.3.4    | 高质量模型                              |
+| `jimeng-4.1`     | `high_aes_general_v41`               | 3.3.4    | 高质量模型                              |
+| `jimeng-4.0`     | `high_aes_general_v40`               | 3.3.4    | 稳定版本                               |
+| `jimeng-3.1`     | `high_aes_general_v30l_art_fangzhou` | -        | 艺术风格                               |
+| `jimeng-3.0`     | `high_aes_general_v30l`              | -        | 通用模型                               |
+| `jimeng-2.1`     | -                                    | -        | 旧版模型                               |
+| `jimeng-2.0-pro` | -                                    | -        | 旧版专业模型                             |
+| `jimeng-2.0`     | -                                    | -        | 旧版模型                               |
+| `jimeng-1.4`     | -                                    | -        | 早期模型                               |
+| `jimeng-xl-pro`  | -                                    | -        | XL 专业模型                            |
+
 
 #### 视频模型
-| 用户模型名 | 内部模型名 | 说明 |
-|-----------|-----------|------|
-| `jimeng-video-3.5-pro` | `dreamina_ic_generate_video_model_vgfm_3.5_pro` | 最新视频模型 |
-| `jimeng-video-3.0` | - | 视频生成 3.0 |
-| `jimeng-video-3.0-pro` | - | 视频生成 3.0 专业版 |
-| `jimeng-video-2.0` | - | 视频生成 2.0 |
-| `jimeng-video-2.0-pro` | - | 视频生成 2.0 专业版 |
-| `jimeng-video-seedance-2.0` | `dreamina_seedance_40_pro` | Seedance 2.0（上游标准名称，推荐） |
-| `seedance-2.0` | `dreamina_seedance_40_pro` | 多图智能视频生成（向后兼容别名） |
-| `seedance-2.0-pro` | `dreamina_seedance_40_pro` | 多图智能视频生成专业版（向后兼容别名） |
-| `jimeng-video-seedance-2.0-fast` | `dreamina_seedance_40` | Seedance 2.0-fast 快速版（上游标准名称） |
-| `seedance-2.0-fast` | `dreamina_seedance_40` | Seedance 2.0-fast 快速版（向后兼容别名） |
+
+
+| 用户模型名                            | 内部模型名                                           | 说明                            |
+| -------------------------------- | ----------------------------------------------- | ----------------------------- |
+| `jimeng-video-3.5-pro`           | `dreamina_ic_generate_video_model_vgfm_3.5_pro` | 最新视频模型                        |
+| `jimeng-video-3.0`               | -                                               | 视频生成 3.0                      |
+| `jimeng-video-3.0-pro`           | -                                               | 视频生成 3.0 专业版                  |
+| `jimeng-video-2.0`               | -                                               | 视频生成 2.0                      |
+| `jimeng-video-2.0-pro`           | -                                               | 视频生成 2.0 专业版                  |
+| `jimeng-video-seedance-2.0`      | `dreamina_seedance_40_pro`                      | Seedance 2.0（上游标准名称，推荐）       |
+| `seedance-2.0`                   | `dreamina_seedance_40_pro`                      | 多图智能视频生成（向后兼容别名）              |
+| `seedance-2.0-pro`               | `dreamina_seedance_40_pro`                      | 多图智能视频生成专业版（向后兼容别名）           |
+| `jimeng-video-seedance-2.0-fast` | `dreamina_seedance_40`                          | Seedance 2.0-fast 快速版（上游标准名称） |
+| `seedance-2.0-fast`              | `dreamina_seedance_40`                          | Seedance 2.0-fast 快速版（向后兼容别名） |
+
 
 ### 请求参数
 
 #### 图像生成参数 (`/v1/images/generations`)
-| 参数 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| model | string | 否 | jimeng-4.5 | 模型名称 |
-| prompt | string | 是 | - | 提示词，jimeng-4.x/5.x 支持多图生成 |
-| images | array | 否 | - | 图片URL数组（1-10张），提供则走图生图模式，不提供则走文生图模式 |
-| negative_prompt | string | 否 | "" | 反向提示词 |
-| ratio | string | 否 | 1:1 | 宽高比：1:1, 4:3, 3:4, 16:9, 9:16, 3:2, 2:3, 21:9 |
-| resolution | string | 否 | 2k | 分辨率：1k, 2k, 4k |
-| sample_strength | float | 否 | 0.5 | 精细度 0.0-1.0 |
-| response_format | string | 否 | url | url 或 b64_json |
+
+
+| 参数              | 类型     | 必填  | 默认值        | 说明                                            |
+| --------------- | ------ | --- | ---------- | --------------------------------------------- |
+| model           | string | 否   | jimeng-4.5 | 模型名称                                          |
+| prompt          | string | 是   | -          | 提示词，jimeng-4.x/5.x 支持多图生成                     |
+| images          | array  | 否   | -          | 图片URL数组（1-10张），提供则走图生图模式，不提供则走文生图模式           |
+| negative_prompt | string | 否   | ""         | 反向提示词                                         |
+| ratio           | string | 否   | 1:1        | 宽高比：1:1, 4:3, 3:4, 16:9, 9:16, 3:2, 2:3, 21:9 |
+| resolution      | string | 否   | 2k         | 分辨率：1k, 2k, 4k                                |
+| sample_strength | float  | 否   | 0.5        | 精细度 0.0-1.0                                   |
+| response_format | string | 否   | url        | url 或 b64_json                                |
+
 
 **说明：**
+
 - 当 `images` 参数为空或不提供时，接口执行文生图功能
 - 当 `images` 参数提供（1-10张图片）时，接口执行图生图功能
 - 支持 `application/json`（images 为 URL 数组）和 `multipart/form-data`（通过 images 字段上传文件）两种请求格式
 - 图生图模式下，响应会额外包含 `input_images` 和 `composition_type` 字段
 
 #### 图生图参数 (`/v1/images/compositions`) - 向后兼容
+
 - 与 `/v1/images/generations` 相同的参数
 - `images` 字段为必填（1-10张图片）
 - 额外支持 multipart/form-data 文件上传
 
 #### 视频生成参数 (`/v1/videos/generations`)
-| 参数 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| model | string | 否 | jimeng-video-3.0 | 模型名称 |
-| prompt | string | 否 | - | 视频描述（图生视频时可选） |
-| ratio | string | 否 | 1:1 | 宽高比：1:1, 4:3, 3:4, 16:9, 9:16 |
-| resolution | string | 否 | 720p | 分辨率：480p, 720p, 1080p |
-| duration | number | 否 | 5 | 时长：4-15秒（Seedance）、5 或 10 秒（普通） |
-| file_paths / filePaths | array | 否 | [] | 首帧/尾帧图片 URL |
-| files | file[] | 否 | - | 上传的素材文件（图片/视频/音频，multipart） |
+
+
+| 参数                     | 类型     | 必填  | 默认值              | 说明                              |
+| ---------------------- | ------ | --- | ---------------- | ------------------------------- |
+| model                  | string | 否   | jimeng-video-3.0 | 模型名称                            |
+| prompt                 | string | 否   | -                | 视频描述（图生视频时可选）                   |
+| ratio                  | string | 否   | 1:1              | 宽高比：1:1, 4:3, 3:4, 16:9, 9:16   |
+| resolution             | string | 否   | 720p             | 分辨率：480p, 720p, 1080p           |
+| duration               | number | 否   | 5                | 时长：4-15秒（Seedance）、5 或 10 秒（普通） |
+| file_paths / filePaths | array  | 否   | []               | 首帧/尾帧图片 URL                     |
+| files                  | file[] | 否   | -                | 上传的素材文件（图片/视频/音频，multipart）     |
+
 
 #### Seedance 2.0 / 2.0-fast 专用参数
+
 - 使用 `unified_edit_input` 结构，包含 `material_list` 和 `meta_list`
 - 支持多模态素材混合上传：图片（ImageX）、视频/音频（VOD）
 - 素材类型自动检测：通过 MIME 类型或文件扩展名判断（image/video/audio）
@@ -201,6 +220,7 @@ src/
 - 支持的素材格式：图片（jpg/png/webp/gif/bmp）、视频（mp4/mov/m4v）、音频（mp3/wav）
 
 ### Shark 反爬与浏览器代理（v0.8.4）
+
 - 即梦对 Seedance 的 `/mweb/v1/aigc_draft/generate` 接口启用了 shark 安全中间件，要求请求携带 `a_bogus` 签名
 - `a_bogus` 由字节跳动 `bdms` SDK 在浏览器中生成，依赖真实浏览器环境（Canvas, WebGL, DOM），Node.js 无法直接运行
 - 解决方案：通过 `BrowserService`（`src/lib/browser-service.ts`）使用 Playwright 启动 headless Chromium，`bdms` SDK 自动拦截 `fetch` 并注入 `a_bogus`
@@ -209,12 +229,14 @@ src/
 - 资源拦截：屏蔽图片/字体/CSS，仅允许 bdms SDK 相关脚本（白名单域名：`vlabstatic.com`、`bytescm.com`、`jianying.com`、`byteimg.com`）
 
 ### 文件上传
+
 - 支持 multipart/form-data 文件上传
 - koa-body 配置最大文件大小 100MB
 - files 字段可以是对象或数组格式（在 Request.ts 中自动规范化）
 - 支持 formLimit/jsonLimit/textLimit：100mb
 
 ### 上传通道（v0.8.5）
+
 - **ImageX 通道**（图片上传）：`get_upload_token(scene=2)` → `imagex.bytedanceapi.com` → `ApplyImageUpload` / `CommitImageUpload`，返回 URI 格式 `tos-cn-i-{service_id}/{uuid}`，service_id 为 `tb4s082cfz`
 - **VOD 通道**（视频/音频上传）：`get_upload_token(scene=1)` → `vod.bytedanceapi.com` → `ApplyUploadInner` / `CommitUploadInner`，返回 vid 格式 `v028xxx`，SpaceName 为 `dreamina`
 - AWS Signature V4 签名：ImageX 使用 service=`imagex`，VOD 使用 service=`vod`，region 均为 `cn-north-1`
@@ -223,20 +245,27 @@ src/
 ### 分辨率支持
 
 #### 图片分辨率
-| 分辨率 | 1:1 | 4:3 | 3:4 | 16:9 | 9:16 | 3:2 | 2:3 | 21:9 |
-|--------|-----|-----|-----|------|------|-----|-----|------|
-| 1k | 1024×1024 | 768×1024 | 1024×768 | 1024×576 | 576×1024 | 1024×682 | 682×1024 | 1195×512 |
-| 2k | 2048×2048 | 2304×1728 | 1728×2304 | 2560×1440 | 1440×2560 | 2496×1664 | 1664×2496 | 3024×1296 |
-| 4k | 4096×4096 | 4608×3456 | 3456×4608 | 5120×2880 | 2880×5120 | 4992×3328 | 3328×4992 | 6048×2592 |
+
+
+| 分辨率 | 1:1       | 4:3       | 3:4       | 16:9      | 9:16      | 3:2       | 2:3       | 21:9      |
+| --- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| 1k  | 1024×1024 | 768×1024  | 1024×768  | 1024×576  | 576×1024  | 1024×682  | 682×1024  | 1195×512  |
+| 2k  | 2048×2048 | 2304×1728 | 1728×2304 | 2560×1440 | 1440×2560 | 2496×1664 | 1664×2496 | 3024×1296 |
+| 4k  | 4096×4096 | 4608×3456 | 3456×4608 | 5120×2880 | 2880×5120 | 4992×3328 | 3328×4992 | 6048×2592 |
+
 
 #### 视频分辨率
-| 分辨率 | 1:1 | 4:3 | 3:4 | 16:9 | 9:16 |
-|--------|-----|-----|-----|------|------|
-| 480p | 480×480 | 640×480 | 480×640 | 854×480 | 480×854 |
-| 720p | 720×720 | 960×720 | 720×960 | 1280×720 | 720×1280 |
+
+
+| 分辨率   | 1:1       | 4:3       | 3:4       | 16:9      | 9:16      |
+| ----- | --------- | --------- | --------- | --------- | --------- |
+| 480p  | 480×480   | 640×480   | 480×640   | 854×480   | 480×854   |
+| 720p  | 720×720   | 960×720   | 720×960   | 1280×720  | 720×1280  |
 | 1080p | 1080×1080 | 1440×1080 | 1080×1440 | 1920×1080 | 1080×1920 |
 
+
 ### 服务器中间件栈
+
 1. **CORS 跨域支持**：`koa2-cors()`
 2. **Range 请求**：`koaRange`（支持分段内容传输）
 3. **自定义异常处理器**：捕获错误并返回 FailureBody 响应

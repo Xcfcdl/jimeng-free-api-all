@@ -4,7 +4,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-v0.8.6-green.svg)
-![Node](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen.svg)
+![Node](https://img.shields.io/badge/node->=16.0.0-brightgreen.svg)
 ![Docker](https://img.shields.io/badge/docker-ready-blue.svg)
 
 > 🎨 将即梦 AI 强大的图像和视频生成能力，通过 OpenAI 兼容接口开放给开发者
@@ -26,32 +26,36 @@ Jimeng AI Free API 是一个逆向工程的 API 服务器，将即梦 AI（Jimen
 
 ### 技术栈
 
-| 技术 | 版本 | 用途 |
-|------|------|------|
-| Node.js | >=16.0.0 | 运行环境 |
-| TypeScript | ^5.0.0 | 开发语言 |
-| Koa | ^2.15.0 | Web 框架 |
-| Playwright | ^1.49.0 | 浏览器代理（Seedance 反爬绕过） |
-| Docker | latest | 容器化部署 |
+
+| 技术         | 版本       | 用途                   |
+| ---------- | -------- | -------------------- |
+| Node.js    | >=16.0.0 | 运行环境                 |
+| TypeScript | ^5.0.0   | 开发语言                 |
+| Koa        | ^2.15.0  | Web 框架               |
+| Playwright | ^1.49.0  | 浏览器代理（Seedance 反爬绕过） |
+| Docker     | latest   | 容器化部署                |
+
 
 ## 功能清单
 
-| 功能名称 | 功能说明 | 模型 | 状态 |
-|---------|---------|------|------|
-| 文生图 | 根据文本描述生成图片 | jimeng-5.0, jimeng-4.6, jimeng-4.5, jimeng-4.1 等 | ✅ 可用 |
-| 图生图 | 多图合成生成新图片 | jimeng-5.0, jimeng-4.6, jimeng-4.5 等 | ✅ 可用 |
-| 文生视频 | 根据文本描述生成视频 | jimeng-video-3.5-pro 等 | ✅ 可用 |
-| 图生视频 | 使用首帧/尾帧图片生成视频 | jimeng-video-3.0 等 | ✅ 可用 |
-| 多图智能视频 | Seedance 2.0 多模态混合生成 | jimeng-video-seedance-2.0, seedance-2.0 | ✅ 可用 |
-| 多图快速视频 | Seedance 2.0-fast 快速生成 | jimeng-video-seedance-2.0-fast, seedance-2.0-fast | ✅ 可用 |
-| 音频驱动视频 | Seedance 图片+音频混合生成 | jimeng-video-seedance-2.0, seedance-2.0-fast | ✅ 可用 |
-| Chat 接口 | OpenAI 兼容的对话接口 | 所有模型 | ✅ 可用 |
+
+| 功能名称    | 功能说明                   | 模型                                                | 状态   |
+| ------- | ---------------------- | ------------------------------------------------- | ---- |
+| 文生图     | 根据文本描述生成图片             | jimeng-5.0, jimeng-4.6, jimeng-4.5, jimeng-4.1 等  | ✅ 可用 |
+| 图生图     | 多图合成生成新图片              | jimeng-5.0, jimeng-4.6, jimeng-4.5 等              | ✅ 可用 |
+| 文生视频    | 根据文本描述生成视频             | jimeng-video-3.5-pro 等                            | ✅ 可用 |
+| 图生视频    | 使用首帧/尾帧图片生成视频          | jimeng-video-3.0 等                                | ✅ 可用 |
+| 多图智能视频  | Seedance 2.0 多模态混合生成   | jimeng-video-seedance-2.0, seedance-2.0           | ✅ 可用 |
+| 多图快速视频  | Seedance 2.0-fast 快速生成 | jimeng-video-seedance-2.0-fast, seedance-2.0-fast | ✅ 可用 |
+| 音频驱动视频  | Seedance 图片+音频混合生成     | jimeng-video-seedance-2.0, seedance-2.0-fast      | ✅ 可用 |
+| Chat 接口 | OpenAI 兼容的对话接口         | 所有模型                                              | ✅ 可用 |
+
 
 ## 免责声明
 
 > ⚠️ **重要提示**
 
-**逆向 API 是不稳定的，建议前往即梦 AI 官方 https://jimeng.jianying.com/ 体验功能，避免封禁的风险。**
+**逆向 API 是不稳定的，建议前往即梦 AI 官方 [https://jimeng.jianying.com/](https://jimeng.jianying.com/) 体验功能，避免封禁的风险。**
 
 **本组织和个人不接受任何资金捐助和交易，此项目是纯粹研究交流学习性质！**
 
@@ -145,13 +149,15 @@ Authorization: Bearer sessionid1,sessionid2,sessionid3
 
 ### API 端点
 
-| 端点 | 方法 | 说明 |
-|------|------|------|
-| `/v1/chat/completions` | POST | OpenAI 兼容的对话接口 |
-| `/v1/images/generations` | POST | 文生图/图生图接口（支持 images 可选参数） |
-| `/v1/images/compositions` | POST | 图生图接口（向后兼容） |
-| `/v1/videos/generations` | POST | 视频生成接口 |
-| `/v1/models` | GET | 获取模型列表 |
+
+| 端点                        | 方法   | 说明                        |
+| ------------------------- | ---- | ------------------------- |
+| `/v1/chat/completions`    | POST | OpenAI 兼容的对话接口            |
+| `/v1/images/generations`  | POST | 文生图/图生图接口（支持 images 可选参数） |
+| `/v1/images/compositions` | POST | 图生图接口（向后兼容）               |
+| `/v1/videos/generations`  | POST | 视频生成接口                    |
+| `/v1/models`              | GET  | 获取模型列表                    |
+
 
 ### 快速开始
 
@@ -284,53 +290,61 @@ jimeng-free-api-all/
 
 ### 文生图模型
 
-| 用户模型名 | 内部模型名 | 说明 |
-|-----------|-----------|------|
-| `jimeng-5.0` | `high_aes_general_v50` | 5.0 正式版，最新模型 |
-| `jimeng-4.6` | `high_aes_general_v42` | 最新模型，推荐使用 |
-| `jimeng-4.5` | `high_aes_general_v40l` | 高质量模型 |
-| `jimeng-4.1` | `high_aes_general_v41` | 高质量模型 |
-| `jimeng-4.0` | `high_aes_general_v40` | 稳定版本 |
-| `jimeng-3.1` | `high_aes_general_v30l_art_fangzhou` | 艺术风格 |
-| `jimeng-3.0` | `high_aes_general_v30l` | 通用模型 |
-| `jimeng-2.1` | - | 旧版模型 |
-| `jimeng-2.0-pro` | - | 旧版专业模型 |
-| `jimeng-2.0` | - | 旧版模型 |
-| `jimeng-1.4` | - | 早期模型 |
-| `jimeng-xl-pro` | - | XL 专业模型 |
+
+| 用户模型名            | 内部模型名                                | 说明           |
+| ---------------- | ------------------------------------ | ------------ |
+| `jimeng-5.0`     | `high_aes_general_v50`               | 5.0 正式版，最新模型 |
+| `jimeng-4.6`     | `high_aes_general_v42`               | 最新模型，推荐使用    |
+| `jimeng-4.5`     | `high_aes_general_v40l`              | 高质量模型        |
+| `jimeng-4.1`     | `high_aes_general_v41`               | 高质量模型        |
+| `jimeng-4.0`     | `high_aes_general_v40`               | 稳定版本         |
+| `jimeng-3.1`     | `high_aes_general_v30l_art_fangzhou` | 艺术风格         |
+| `jimeng-3.0`     | `high_aes_general_v30l`              | 通用模型         |
+| `jimeng-2.1`     | -                                    | 旧版模型         |
+| `jimeng-2.0-pro` | -                                    | 旧版专业模型       |
+| `jimeng-2.0`     | -                                    | 旧版模型         |
+| `jimeng-1.4`     | -                                    | 早期模型         |
+| `jimeng-xl-pro`  | -                                    | XL 专业模型      |
+
 
 ### 视频模型
 
-| 用户模型名 | 内部模型名 | 说明 |
-|-----------|-----------|------|
-| `jimeng-video-3.5-pro` | `dreamina_ic_generate_video_model_vgfm_3.5_pro` | 最新视频模型 |
-| `jimeng-video-3.0` | - | 视频生成 3.0 |
-| `jimeng-video-3.0-pro` | - | 视频生成 3.0 专业版 |
-| `jimeng-video-2.0` | - | 视频生成 2.0 |
-| `jimeng-video-2.0-pro` | - | 视频生成 2.0 专业版 |
-| `jimeng-video-seedance-2.0` | `dreamina_seedance_40_pro` | Seedance 2.0（上游标准名称，推荐） |
-| `seedance-2.0` | `dreamina_seedance_40_pro` | Seedance 2.0（向后兼容别名） |
-| `seedance-2.0-pro` | `dreamina_seedance_40_pro` | Seedance 2.0（向后兼容别名） |
-| `jimeng-video-seedance-2.0-fast` | `dreamina_seedance_40` | Seedance 2.0-fast 快速版（上游标准名称） |
-| `seedance-2.0-fast` | `dreamina_seedance_40` | Seedance 2.0-fast 快速版（向后兼容别名） |
+
+| 用户模型名                            | 内部模型名                                           | 说明                            |
+| -------------------------------- | ----------------------------------------------- | ----------------------------- |
+| `jimeng-video-3.5-pro`           | `dreamina_ic_generate_video_model_vgfm_3.5_pro` | 最新视频模型                        |
+| `jimeng-video-3.0`               | -                                               | 视频生成 3.0                      |
+| `jimeng-video-3.0-pro`           | -                                               | 视频生成 3.0 专业版                  |
+| `jimeng-video-2.0`               | -                                               | 视频生成 2.0                      |
+| `jimeng-video-2.0-pro`           | -                                               | 视频生成 2.0 专业版                  |
+| `jimeng-video-seedance-2.0`      | `dreamina_seedance_40_pro`                      | Seedance 2.0（上游标准名称，推荐）       |
+| `seedance-2.0`                   | `dreamina_seedance_40_pro`                      | Seedance 2.0（向后兼容别名）          |
+| `seedance-2.0-pro`               | `dreamina_seedance_40_pro`                      | Seedance 2.0（向后兼容别名）          |
+| `jimeng-video-seedance-2.0-fast` | `dreamina_seedance_40`                          | Seedance 2.0-fast 快速版（上游标准名称） |
+| `seedance-2.0-fast`              | `dreamina_seedance_40`                          | Seedance 2.0-fast 快速版（向后兼容别名） |
+
 
 ### 分辨率支持
 
 #### 图片分辨率
 
-| 分辨率 | 1:1 | 4:3 | 3:4 | 16:9 | 9:16 | 3:2 | 2:3 | 21:9 |
-|--------|-----|-----|-----|------|------|-----|-----|------|
-| 1k | 1024×1024 | 768×1024 | 1024×768 | 1024×576 | 576×1024 | 1024×682 | 682×1024 | 1195×512 |
-| 2k | 2048×2048 | 2304×1728 | 1728×2304 | 2560×1440 | 1440×2560 | 2496×1664 | 1664×2496 | 3024×1296 |
-| 4k | 4096×4096 | 4608×3456 | 3456×4608 | 5120×2880 | 2880×5120 | 4992×3328 | 3328×4992 | 6048×2592 |
+
+| 分辨率 | 1:1       | 4:3       | 3:4       | 16:9      | 9:16      | 3:2       | 2:3       | 21:9      |
+| --- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| 1k  | 1024×1024 | 768×1024  | 1024×768  | 1024×576  | 576×1024  | 1024×682  | 682×1024  | 1195×512  |
+| 2k  | 2048×2048 | 2304×1728 | 1728×2304 | 2560×1440 | 1440×2560 | 2496×1664 | 1664×2496 | 3024×1296 |
+| 4k  | 4096×4096 | 4608×3456 | 3456×4608 | 5120×2880 | 2880×5120 | 4992×3328 | 3328×4992 | 6048×2592 |
+
 
 #### 视频分辨率
 
-| 分辨率 | 1:1 | 4:3 | 3:4 | 16:9 | 9:16 |
-|--------|-----|-----|-----|------|------|
-| 480p | 480×480 | 640×480 | 480×640 | 854×480 | 480×854 |
-| 720p | 720×720 | 960×720 | 720×960 | 1280×720 | 720×1280 |
+
+| 分辨率   | 1:1       | 4:3       | 3:4       | 16:9      | 9:16      |
+| ----- | --------- | --------- | --------- | --------- | --------- |
+| 480p  | 480×480   | 640×480   | 480×640   | 854×480   | 480×854   |
+| 720p  | 720×720   | 960×720   | 720×960   | 1280×720  | 720×1280  |
 | 1080p | 1080×1080 | 1440×1080 | 1080×1440 | 1920×1080 | 1080×1920 |
+
 
 ## API 详细文档
 
@@ -340,18 +354,21 @@ jimeng-free-api-all/
 
 统一接口，支持文生图和图生图两种模式：
 
-| 参数 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| model | string | 否 | jimeng-4.5 | 模型名称 |
-| prompt | string | 是 | - | 提示词，支持多图生成 |
-| images | array | 否 | - | 图片URL数组（1-10张），提供则走图生图模式，不提供则走文生图模式 |
-| negative_prompt | string | 否 | "" | 反向提示词 |
-| ratio | string | 否 | 1:1 | 宽高比 |
-| resolution | string | 否 | 2k | 分辨率：1k, 2k, 4k |
-| sample_strength | number | 否 | 0.5 | 精细度 0-1 |
-| response_format | string | 否 | url | url 或 b64_json |
+
+| 参数              | 类型     | 必填  | 默认值        | 说明                                  |
+| --------------- | ------ | --- | ---------- | ----------------------------------- |
+| model           | string | 否   | jimeng-4.5 | 模型名称                                |
+| prompt          | string | 是   | -          | 提示词，支持多图生成                          |
+| images          | array  | 否   | -          | 图片URL数组（1-10张），提供则走图生图模式，不提供则走文生图模式 |
+| negative_prompt | string | 否   | ""         | 反向提示词                               |
+| ratio           | string | 否   | 1:1        | 宽高比                                 |
+| resolution      | string | 否   | 2k         | 分辨率：1k, 2k, 4k                      |
+| sample_strength | number | 否   | 0.5        | 精细度 0-1                             |
+| response_format | string | 否   | url        | url 或 b64_json                      |
+
 
 **说明：**
+
 - 当 `images` 参数为空或不提供时，接口执行文生图功能
 - 当 `images` 参数提供（1-10张图片）时，接口执行图生图功能
 - 支持 `application/json`（images 为 URL 数组）和 `multipart/form-data`（通过 images 字段上传文件）两种请求格式
@@ -363,46 +380,54 @@ jimeng-free-api-all/
 
 保留此接口以确保向后兼容，功能与 `/v1/images/generations` 提供 `images` 参数时相同。
 
-| 参数 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| model | string | 否 | jimeng-4.5 | 模型名称 |
-| prompt | string | 是 | - | 提示词 |
-| images | array | 是 | - | 图片URL数组，1-10张 |
-| ratio | string | 否 | 1:1 | 宽高比 |
-| resolution | string | 否 | 2k | 分辨率 |
+
+| 参数         | 类型     | 必填  | 默认值        | 说明            |
+| ---------- | ------ | --- | ---------- | ------------- |
+| model      | string | 否   | jimeng-4.5 | 模型名称          |
+| prompt     | string | 是   | -          | 提示词           |
+| images     | array  | 是   | -          | 图片URL数组，1-10张 |
+| ratio      | string | 否   | 1:1        | 宽高比           |
+| resolution | string | 否   | 2k         | 分辨率           |
+
 
 ### 视频生成接口
 
 **POST /v1/videos/generations**
 
-| 参数 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| model | string | 否 | jimeng-video-3.0 | 模型名称 |
-| prompt | string | 是 | - | 视频描述 |
-| ratio | string | 否 | 1:1 | 宽高比 |
-| resolution | string | 否 | 720p | 分辨率：480p, 720p, 1080p |
-| duration | number | 否 | 5 | 时长：4-15 秒（Seedance）、5 或 10 秒（普通） |
-| file_paths | array | 否 | [] | 首帧/尾帧图片URL |
+
+| 参数         | 类型     | 必填  | 默认值              | 说明                               |
+| ---------- | ------ | --- | ---------------- | -------------------------------- |
+| model      | string | 否   | jimeng-video-3.0 | 模型名称                             |
+| prompt     | string | 是   | -                | 视频描述                             |
+| ratio      | string | 否   | 1:1              | 宽高比                              |
+| resolution | string | 否   | 720p             | 分辨率：480p, 720p, 1080p            |
+| duration   | number | 否   | 5                | 时长：4-15 秒（Seedance）、5 或 10 秒（普通） |
+| file_paths | array  | 否   | []               | 首帧/尾帧图片URL                       |
+
 
 ### Seedance 2.0 / 2.0-fast 接口
 
 **POST /v1/videos/generations**
 
-| 参数 | 类型 | 必填 | 默认值 | 说明 |
-|------|------|------|--------|------|
-| model | string | 是 | - | jimeng-video-seedance-2.0（推荐）、jimeng-video-seedance-2.0-fast（快速版）或 seedance-2.0 |
-| prompt | string | 否 | - | 提示词，使用 @1、@2 引用素材（图片/视频/音频） |
-| ratio | string | 否 | 4:3 | 宽高比 |
-| duration | number | 否 | 4 | 视频时长 4-15 秒 |
-| files | file[] | 是* | - | 上传的素材文件（图片/视频/音频，multipart） |
-| file_paths | array | 是* | - | 素材URL数组（JSON） |
+
+| 参数         | 类型     | 必填  | 默认值 | 说明                                                                              |
+| ---------- | ------ | --- | --- | ------------------------------------------------------------------------------- |
+| model      | string | 是   | -   | jimeng-video-seedance-2.0（推荐）、jimeng-video-seedance-2.0-fast（快速版）或 seedance-2.0 |
+| prompt     | string | 否   | -   | 提示词，使用 @1、@2 引用素材（图片/视频/音频）                                                     |
+| ratio      | string | 否   | 4:3 | 宽高比                                                                             |
+| duration   | number | 否   | 4   | 视频时长 4-15 秒                                                                     |
+| files      | file[] | 是*  | -   | 上传的素材文件（图片/视频/音频，multipart）                                                     |
+| file_paths | array  | 是*  | -   | 素材URL数组（JSON）                                                                   |
+
 
 **支持的素材类型：**
+
 - 图片：jpg, png, webp, gif, bmp
 - 视频：mp4, mov, m4v
 - 音频：mp3, wav
 
 **提示词占位符：**
+
 - `@1` / `@图1` / `@image1` - 引用第一个素材
 - `@2` / `@图2` / `@image2` - 引用第二个素材
 
@@ -466,6 +491,7 @@ npm start
 项目提供了 `scripts/logout-sessions.py` 脚本，通过 Playwright headless 浏览器自动化模拟用户点击"退出登录"操作，使指定 sessionid 在即梦服务器端彻底失效。
 
 **退出原理：**
+
 ```
 注入 sessionid → 打开即梦主页 → 验证已登录
   → 点击左侧「设置」按钮 → 弹出下拉菜单 → 点击「退出」
@@ -544,13 +570,15 @@ python3 scripts/logout-sessions.py
 
 ### 状态说明
 
-| 状态 | 含义 |
-|------|------|
-| ✅ 退出成功 | sessionid 已在服务器端销毁，不可再使用 |
-| ⬜ 已失效   | sessionid 已自然过期，无需处理 |
-| ⚠️ 状态不确定 | 请手动登录对应账号验证，或重试 |
-| ❌ 找不到退出按钮 | 即梦页面结构可能已变更，请反馈 Issue |
-| ❌ 发生异常 | 网络问题或 Playwright 未正确安装 |
+
+| 状态        | 含义                       |
+| --------- | ------------------------ |
+| ✅ 退出成功    | sessionid 已在服务器端销毁，不可再使用 |
+| ⬜ 已失效     | sessionid 已自然过期，无需处理     |
+| ⚠️ 状态不确定  | 请手动登录对应账号验证，或重试          |
+| ❌ 找不到退出按钮 | 即梦页面结构可能已变更，请反馈 Issue    |
+| ❌ 发生异常    | 网络问题或 Playwright 未正确安装   |
+
 
 > ⚠️ **注意**：退出操作不可逆，执行前请确认 sessionid 列表无误。
 
@@ -558,25 +586,22 @@ python3 scripts/logout-sessions.py
 
 ## 常见问题
 
-<details>
-<summary>如何获取 sessionid？</summary>
+如何获取 sessionid？
 
 1. 访问 [即梦 AI](https://jimeng.jianying.com/) 并登录
 2. 按 F12 打开开发者工具
 3. 进入 Application > Cookies
 4. 复制 `sessionid` 的值
 
-</details>
+&nbsp;
 
-<details>
-<summary>sessionid 失效怎么办？</summary>
+sessionid 失效怎么办？
 
 sessionid 有效期有限，失效后需要重新登录即梦网站获取新的 sessionid。建议配置多个账号以提高可用性。
 
-</details>
+&nbsp;
 
-<details>
-<summary>sessionid 泄露了怎么强制注销？</summary>
+sessionid 泄露了怎么强制注销？
 
 使用项目提供的退出工具，可以在服务器端强制销毁历史 sessionid：
 
@@ -586,39 +611,36 @@ python3 scripts/logout-sessions.py <泄露的sessionid>
 
 详见 [安全管理：强制退出历史 Session](#安全管理强制退出历史-session) 章节。
 
-</details>
+&nbsp;
 
-<details>
-<summary>如何配置多账号？</summary>
+如何配置多账号？
 
 在 Authorization 头中使用逗号分隔多个 sessionid：
+
 ```
 Authorization: Bearer sessionid1,sessionid2,sessionid3
 ```
 
-</details>
+&nbsp;
 
-<details>
-<summary>Docker 容器无法启动？</summary>
+Docker 容器无法启动？
 
 1. 检查端口 8000 是否被占用
 2. 确保 Docker 服务正在运行
 3. 查看容器日志：`docker logs jimeng-free-api-all`
 
-</details>
+&nbsp;
 
-<details>
-<summary>生成失败返回错误？</summary>
+生成失败返回错误？
 
 1. 检查 sessionid 是否有效
 2. 确认账号积分是否充足
 3. 检查请求参数是否正确
 4. 查看服务器日志获取详细错误信息
 
-</details>
+&nbsp;
 
-<details>
-<summary>Seedance 视频生成报 "shark not pass" 错误？</summary>
+Seedance 视频生成报 "shark not pass" 错误？
 
 该错误表示即梦的 shark 安全中间件拦截了请求。v0.8.4 已通过 Playwright 浏览器代理解决此问题。请确保：
 
@@ -626,20 +648,20 @@ Authorization: Bearer sessionid1,sessionid2,sessionid3
 2. Docker 用户请使用 v0.8.4 及以上版本的镜像，Dockerfile 已内置 Chromium 支持
 3. 首次 Seedance 请求会自动启动浏览器（约数秒），后续请求复用会话
 
-</details>
+&nbsp;
 
 ## 更新日志
 
 ### v0.8.7 (2026-03-22) - 新增历史 Session 强制退出工具
 
-- 🔒 **新增 `scripts/logout-sessions.py`**：通过 Playwright headless 浏览器模拟点击退出操作，批量强制注销历史 sessionid
+- 🔒 **新增 `scripts/logout-sessions.py**`：通过 Playwright headless 浏览器模拟点击退出操作，批量强制注销历史 sessionid
 - 🔒 **退出原理**：注入 sessionid → 打开即梦主页 → 点击「设置 → 退出」→ 调用 `/passport/web/logout/` 接口 → 服务器端 Session 彻底销毁
 - 📝 **支持命令行传参**：`python3 scripts/logout-sessions.py <sid1> [sid2] ...`，或在脚本顶部填写 `SESSION_IDS` 列表批量处理
 - 📝 **状态检测**：自动识别已失效的 sessionid 并跳过，退出后实时验证 `window.__isLogined` 状态
 
 ### v0.8.6 (2026-02-20) - jimeng-5.0 正式版模型更新
 
-- 🔄 **模型更名 `jimeng-5.0-preview` → `jimeng-5.0`**：即梦平台已将 5.0 预览版升级为正式版，移除 `-preview` 后缀
+- 🔄 **模型更名 `jimeng-5.0-preview` → `jimeng-5.0**`：即梦平台已将 5.0 预览版升级为正式版，移除 `-preview` 后缀
 - 🔧 **更新模型配置**：同步更新 `MODEL_MAP`、`MODEL_DRAFT_VERSIONS`、`MODEL_CONFIGS` 中的模型名映射
 - 🔧 **更新模型列表接口**：`/v1/models` 返回的模型 ID 和描述信息同步更新
 
@@ -733,12 +755,12 @@ Authorization: Bearer sessionid1,sessionid2,sessionid3
 
 欢迎加入技术交流群，分享使用心得：
 
-![微信图片_20260321212115_179_292](https://mypicture-1258720957.cos.ap-nanjing.myqcloud.com/Obsidian/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20260321212115_179_292.jpg)
+![微信图片_20260321212115_179_292](https://mypicture-1258720957.cos.ap-nanjing.myqcloud.com/Obsidian/微信图片_20260321212115_179_292.jpg)
 
 ## 作者联系
 
 - **微信**: laohaibao2025
-- **邮箱**: 75271002@qq.com
+- **邮箱**: [75271002@qq.com](mailto:75271002@qq.com)
 
 ![微信二维码](https://mypicture-1258720957.cos.ap-nanjing.myqcloud.com/Screenshot_20260123_095617_com.tencent.mm.jpg)
 
@@ -765,4 +787,4 @@ Authorization: Bearer sessionid1,sessionid2,sessionid3
 
 如果觉得项目不错，欢迎点个 Star ⭐
 
-[![Star History Chart](https://api.star-history.com/svg?repos=wwwzhouhui/jimeng-free-api-all&type=Date)](https://star-history.com/#wwwzhouhui/jimeng-free-api-all&Date)
+![Star History Chart](https://api.star-history.com/svg?repos=wwwzhouhui/jimeng-free-api-all&type=Date)

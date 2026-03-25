@@ -29,8 +29,10 @@ export default class Request {
     params: any;
     /** 请求载荷 */
     body: any;
-    /** 上传的文件 */
-    files: any[];
+    /** 上传的文件（按字段名分组，例如 files.images） */
+    files: any;
+    /** 上传的文件（平铺列表） */
+    fileList: any[];
     /** 客户端IP地址 */
     remoteIP: string | null;
     /** 请求接受时间戳（毫秒） */
@@ -47,15 +49,17 @@ export default class Request {
         this.query = ctx.query || {};
         this.params = ctx.params || {};
         this.body = ctx.request.body || {};
-        // koa-body 的 files 可能是对象 { files: [File, File] } 或 { files: File }
-        // 需要统一转换为数组格式
-        const rawFiles = ctx.request.files;
+        
+        // koa-body 的 files 可能是对象 { field: File | [File, File] }
+        const rawFiles = ctx.request.files || {};
+        this.files = rawFiles;
+        
+        // 统一平铺到 fileList 以供某些只需处理所有文件的场景（如视频生成）
+        const filesArray: any[] = [];
         if (rawFiles) {
             if (Array.isArray(rawFiles)) {
-                this.files = rawFiles;
+                filesArray.push(...rawFiles);
             } else if (typeof rawFiles === 'object') {
-                // 遍历对象，提取所有文件
-                const filesArray: any[] = [];
                 for (const key in rawFiles) {
                     const fileOrFiles = rawFiles[key];
                     if (Array.isArray(fileOrFiles)) {
@@ -64,13 +68,10 @@ export default class Request {
                         filesArray.push(fileOrFiles);
                     }
                 }
-                this.files = filesArray;
-            } else {
-                this.files = [];
             }
-        } else {
-            this.files = [];
         }
+        this.fileList = filesArray;
+
         this.remoteIP = this.headers["X-Real-IP"] || this.headers["x-real-ip"] || this.headers["X-Forwarded-For"] || this.headers["x-forwarded-for"] || ctx.ip || null;
         this.time = Number(_.defaultTo(time, util.timestamp()));
     }

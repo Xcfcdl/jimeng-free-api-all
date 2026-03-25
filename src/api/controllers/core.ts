@@ -216,6 +216,7 @@ export async function request(
         headers: headers,
         timeout: 45000, // 增加超时时间到45秒
         validateStatus: () => true, // 允许任何状态码
+        proxy: false, // 强制禁用代理
         ..._.omit(options, "params", "headers"),
       });
       
@@ -276,6 +277,7 @@ export async function request(
   if (util.isBASE64Data(fileUrl)) return;
   const result = await axios.head(fileUrl, {
     timeout: 15000,
+    proxy: false, // 强制禁用代理
     validateStatus: () => true,
   });
   if (result.status >= 400)

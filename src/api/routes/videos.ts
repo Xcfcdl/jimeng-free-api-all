@@ -87,7 +87,7 @@ export default {
                         resolution,
                         duration: seedanceDuration,
                         filePaths: finalFilePaths,
-                        files: request.files,
+                        files: request.fileList,
                     },
                     token
                 );
@@ -101,7 +101,7 @@ export default {
                         resolution,
                         duration: finalDuration,
                         filePaths: finalFilePaths,
-                        files: request.files,
+                        files: request.fileList,
                     },
                     token
                 );
